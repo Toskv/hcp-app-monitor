@@ -7,7 +7,7 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 
 import { IndexRoute } from "./routes/index";
-
+import { StatusRoute } from './routes/status';
 /**
  * The server.
  *
@@ -91,9 +91,9 @@ export class Server {
     this.app.use(methodOverride());
 
     // catch 404 and forward to error handler
-    this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        err.status = 404;
-        next(err);
+    this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      err.status = 404;
+      next(err);
     });
 
     //error handling
@@ -113,6 +113,7 @@ export class Server {
 
     //IndexRoute
     IndexRoute.create(router);
+    StatusRoute.create(router);
 
     //use router middleware
     this.app.use(router);
